@@ -88,4 +88,41 @@ class Field {
 
     this.field[prevRow][prevCol] = fieldCharacter;
     this.field[this.actorRow][this.actorCol] = pathCharacter;
-  }}
+  }
+
+  static generateField(height, width, percentageHoles = 0.2) {
+    const field = [];
+
+    for (let r = 0; r < height; r++) {
+      const row = [];
+      for (let c = 0; c < width; c++) {
+        const random = Math.random();
+        if (random < percentageHoles) {
+          row.push(hole);
+        } else {
+          row.push(fieldCharacter);
+        }
+      }
+      field.push(row);
+    }
+
+    let actorRow, actorCol;
+    do {
+      actorRow = Math.floor(Math.random() * height);
+      actorCol = Math.floor(Math.random() * width);
+    } while (field[actorRow][actorCol] === hole);
+    field[actorRow][actorCol] = pathCharacter;
+
+    let hatRow, hatCol;
+    do {
+      hatRow = Math.floor(Math.random() * height);
+      hatCol = Math.floor(Math.random() * width);
+    } while (
+      (hatRow === actorRow && hatCol === actorCol) ||
+      field[hatRow][hatCol] === hole
+    );
+    field[hatRow][hatCol] = hat;
+
+    return field;
+  }
+}
