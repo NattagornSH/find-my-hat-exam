@@ -126,3 +126,38 @@ class Field {
     return field;
   }
 }
+
+function playGame() {
+  console.log("=================================");
+  console.log("   🎩 Welcome to Find My Hat! 🎩  ");
+  console.log("=================================");
+  console.log("Use W (up), A (left), S (down), D (right) to move");
+  console.log(`Your goal: find the hat (${hat}) and avoid holes (${hole})\n`);
+
+  const myField = new Field(Field.generateField(8, 8, 0.2));
+
+  while (true) {
+    myField.print();
+    const direction = prompt("Which way? (w/a/s/d): ").toLowerCase();
+
+    switch (direction) {
+      case "w":
+        myField.moveUp();
+        break;
+      case "a":
+        myField.moveLeft();
+        break;
+      case "s":
+        myField.moveDown();
+        break;
+      case "d":
+        myField.moveRight();
+        break;
+      default:
+        console.log("⚠️ Invalid input! Please use w, a, s, or d.");
+        break;
+    }
+  }
+}
+
+playGame();
